@@ -12,6 +12,7 @@ gem 'rails', '~> 7.0.5'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
+  gem 'annotate'
   gem 'brakeman'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'faker'

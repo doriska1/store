@@ -1,21 +1,12 @@
 # == Schema Information
 #
-# Table name: items
+# Table name: tags
 #
 #  id         :bigint           not null, primary key
 #  name       :string
-#  price      :decimal(6, 2)
-#  text       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-one:
-  name: MyString
-  price: 9.99
-  text: MyText
-
-two:
-  name: MyString
-  price: 9.99
-  text: MyText
+class Tag < ApplicationRecord
+  has_and_belongs_to_many :item, optional: true, strict_loading: true
+end
