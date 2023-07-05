@@ -20,7 +20,7 @@ class Item < ApplicationRecord
   def tags_attributes=(attributes)
     attributes.each do |tag_attributes|
       tag = Tag.find_or_create_by(tag_attributes)
-      self.tags << tag
+      self.tags << tag unless tags.include?(tag)
     end
   end
 end
