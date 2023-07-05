@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: items
@@ -11,7 +13,6 @@
 #  updated_at :datetime         not null
 #
 class Item < ApplicationRecord
-
   validates :price, numericality: true, presence: true
 
   has_and_belongs_to_many :tags, strict_loading: true
@@ -20,8 +21,7 @@ class Item < ApplicationRecord
   def tags_attributes=(attributes)
     attributes.each do |tag_attributes|
       tag = Tag.find_or_create_by(tag_attributes)
-      self.tags << tag unless tags.include?(tag)
+      tags << tag unless tags.include?(tag)
     end
   end
 end
-

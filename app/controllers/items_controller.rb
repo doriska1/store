@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ show update destroy destroy_tag_from_item]
+  before_action :set_item, only: %i[show update destroy destroy_tag_from_item]
 
   # GET /items
   def index
@@ -44,14 +46,14 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.includes(:tags).find(params[:id])
 
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.includes(:tags).find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def item_params
-      params.require(:item).permit(:name, :price, :text, tags_attributes: [:name])
-    end
+  # Only allow a list of trusted parameters through.
+  def item_params
+    params.require(:item).permit(:name, :price, :text, tags_attributes: [:name])
+  end
 end
