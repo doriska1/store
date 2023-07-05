@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ show update destroy ]
+  before_action :set_item, only: %i[ show update destroy destroy_tag_from_item]
 
   # GET /items
   def index
@@ -36,6 +36,11 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     @item.destroy
+  end
+
+  def destroy_tag_from_item
+    tag = @item.tags.find(params[:tag_id])
+    @item.tags.delete(tag)
   end
 
   private

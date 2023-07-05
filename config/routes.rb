@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :tags
-  resources :items
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'items#index'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :tags
+  resources :items do
+    member do
+      delete '/tags/:tag_id', to: 'items#destroy_tag_from_item'
+      end
+  end
+
 end
