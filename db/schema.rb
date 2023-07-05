@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_03_094120) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_05_115301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_094120) do
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tags", default: [], array: true
   end
 
   create_table "items_tags", id: false, force: :cascade do |t|
@@ -33,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_094120) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   add_foreign_key "items_tags", "items"
