@@ -12,11 +12,13 @@
 # Indexes
 #
 #  index_tags_on_name  (name) UNIQUE
-#
-require 'test_helper'
 
-class TagTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+describe Tag, type: :model do
+  describe 'column' do
+    it { is_expected.to have_db_column(:name).of_type(:string) }
+  end
+
+  describe 'associacion' do
+    it { is_expected.to have_and_belong_to_many(:item) }
+  end
 end
