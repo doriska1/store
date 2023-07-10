@@ -2,7 +2,7 @@
 
 ## 1. Clone repository
 
-
+> https://github.com/doriska1/store
 
 ## 2. Install gems
 
@@ -19,3 +19,124 @@
 ## 5. Run app
 
 `rails s`
+
+# API
+
+## <code>GET</code> requests
+
+Request
+ <summary><code>GET</code> <code><b>/items</b></code> <code>(get list of items)</code></summary>
+
+ Example response
+
+```json
+[
+    {
+        "id": 1,
+        "name": "T-shirt",
+        "price": "100.0",
+        "text": "Pink",
+        "created_at": "2023-07-05T12:09:06.683Z",
+        "updated_at": "2023-07-05T12:09:06.683Z",
+        "tags": []
+},
+    {
+        "id": 2,
+        "name": "Dress",
+        "price": "100.0",
+        "text": "Black",
+        "created_at": "2023-07-05T12:11:15.504Z",
+        "updated_at": "2023-07-05T12:11:15.504Z",
+        "tags": [            {
+          "id": 1,
+          "name": "tag1",
+          "created_at": "2023-07-10T08:58:53.094Z",
+          "updated_at": "2023-07-10T08:58:53.094Z"
+        }]
+    }
+
+]
+```
+
+Request
+ <summary><code>GET</code> <code><b>/items/{:id}</b></code> <code>(get item with id = :id)</code></summary>
+
+Example response
+
+```json
+{
+  "id": 1,
+  "name": "T-shirt",
+  "price": "100.0",
+  "text": "Pink",
+  "created_at": "2023-07-05T12:09:06.683Z",
+  "updated_at": "2023-07-05T12:09:06.683Z",
+  "tags": []
+}
+```
+
+Request
+ <summary><code>GET</code> <code><b>/tags</b></code> <code>(get tags)</code></summary>
+
+Example response
+
+```json
+[
+  {
+    "id": 1,
+    "name": "tag1",
+    "created_at": "2023-07-05T17:10:46.345Z",
+    "updated_at": "2023-07-05T17:10:46.345Z"
+  },
+  {
+    "id": 2,
+    "name": "tag2",
+    "created_at": "2023-07-05T17:11:03.293Z",
+    "updated_at": "2023-07-05T17:11:03.293Z"
+  }
+]
+```
+
+## <code>POST</code> requests
+
+Request
+ <summary><code>POST</code> <code><b>/items</b></code> <code>(Create new item)</code></summary>
+
+Parameters 
+```json
+{
+  "name": "T-shirt",
+  "price": "100.0",
+  "text": "Pink",
+  "tags": [{"name": "tag1"}, {"name": "tag2"}]
+}
+```
+
+Request
+ <summary><code>POST</code> <code><b>/tags</b></code> <code>(Create new tag)</code></summary>
+
+Parameters
+```json
+{
+  "name": "tag1"
+}
+```
+## <code>PATCH</code> requests
+
+Request
+ <summary><code>PATCH</code> <code><b>/items/{:id}</b></code> <code>(Update item)</code></summary>
+
+Parameters
+```json
+{
+  "price": "110.0",
+  "tags": [{"name": "tag3"}]
+}
+```
+## <code>DELETE</code> requests
+
+ <summary><code>DELETE</code> <code><b>/items/{:id}</b></code> <code>(delete item with id = :id)</code></summary>
+
+ <summary><code>DELETE</code> <code><b>/tags/{:id}</b></code> <code>(delete tag with id = :id)</code></summary>
+
+ <summary><code>DELETE</code> <code><b>/items/{:id}/tags/{:id}</b></code> <code>(delete tag from item (but not from tags)</code></summary>
