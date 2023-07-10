@@ -32,7 +32,7 @@ describe Item, type: :model do
 
   describe 'tagging' do
     it 'set tags attributes after creating new item' do
-      item = described_class.new(name: 'T-shirt', price: 100.0, tags_attributes: [{ name: 'tag1' }])
+      item = described_class.new(name: 'T-shirt', price: 100.0, tags: [{ name: 'tag1' }])
       expect(item.tags).to eq [Tag.last]
     end
   end

@@ -18,8 +18,8 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :tags, strict_loading: true
   accepts_nested_attributes_for :tags
 
-  def tags_attributes=(attributes)
-    attributes.each do |tag_attributes|
+  def tags=(tags_attributes)
+    tags_attributes.each do |tag_attributes|
       tag = Tag.find_or_create_by(tag_attributes)
       tags << tag unless tags.include?(tag)
     end
