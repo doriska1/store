@@ -29,7 +29,7 @@ class TagsController < ApplicationController
   # PATCH/PUT /tags/1
   def update
     if @tag.update(tag_params)
-      render json: @tag
+      render json: @tag, status: :found
     else
       render json: @tag.errors, status: :unprocessable_entity
     end
