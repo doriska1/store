@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
-    @items = Item.includes(:tags).all
+    @items = Item.all
 
     render json: @items
   end
@@ -18,7 +18,6 @@ class ItemsController < ApplicationController
   # POST /items
   def create
     @item = Item.new(item_params)
-
     if @item.save
       render json: @item, status: :created, location: @item
     else
@@ -29,7 +28,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   def update
     if @item.update(item_params)
-      render json: @item
+      render json: @item, status: :found
     else
       render json: @item.errors, status: :unprocessable_entity
     end
@@ -38,18 +37,20 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     @item.destroy
+    render json: {}, status: :no_content
   end
 
   def destroy_tag_from_item
     tag = @item.tags.find(params[:tag_id])
     @item.tags.delete(tag)
+    render json: @item, status: :found
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_item
-    @item = Item.includes(:tags).find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

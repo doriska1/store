@@ -15,7 +15,7 @@
 class Item < ApplicationRecord
   validates :price, numericality: true, presence: true
 
-  has_and_belongs_to_many :tags, strict_loading: true
+  has_and_belongs_to_many :tags
   accepts_nested_attributes_for :tags
 
   def tags=(tags_attributes)
