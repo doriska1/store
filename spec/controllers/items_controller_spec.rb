@@ -17,10 +17,9 @@ describe ItemsController do
   end
 
   describe 'GET #show' do
+    subject(:show_request) { get :show, params: { id: item.id } }
 
     let(:item) { create(:item) }
-
-    subject(:show_request) { get :show, params: { id: item.id } }
 
     it 'return Http success' do
       show_request
@@ -34,10 +33,9 @@ describe ItemsController do
   end
 
   describe 'POST #create' do
+    subject(:create_request) { post :create, params: { item: item.attributes } }
 
     let!(:item) { create(:item) }
-
-    subject(:create_request) { post :create, params: { item: item.attributes } }
 
     it 'returns http created' do
       create_request
@@ -50,10 +48,9 @@ describe ItemsController do
   end
 
   describe 'PUT #update' do
+    subject(:update_request) { put :update, params: { id: item.id, item: { "text": 'abc' } } }
 
     let(:item) { create(:item) }
-
-    subject(:update_request) { put :update, params: { id: item.id, item: {"text": "abc"} } }
 
     it 'returns Http found' do
       update_request
@@ -61,14 +58,14 @@ describe ItemsController do
     end
 
     it 'updates the item' do
-      expect { update_request }.to change { item.reload.text }.to("abc")
+      expect { update_request }.to change { item.reload.text }.to('abc')
     end
   end
 
   describe 'DELETE #destroy' do
-    let!(:item) { create(:item) }
-
     subject(:destroy_request) { delete :destroy, params: { id: item.id } }
+
+    let!(:item) { create(:item) }
 
     it 'returns Http no content' do
       destroy_request
@@ -80,10 +77,11 @@ describe ItemsController do
     end
   end
 
-  describe "DELETE #destroy tag from item" do
+  describe 'DELETE #destroy tag from item' do
+    subject(:remove_tag_request) { delete :destroy_tag_from_item, params: { id: item.id, tag_id: tag.id } }
+
     let(:item) { create(:item) }
     let(:tag) { create(:tag) }
-    subject(:remove_tag_request) { delete :destroy_tag_from_item, params: { id: item.id, tag_id: tag.id } }
 
     it 'returns Http found' do
       item.tags << tag
@@ -101,5 +99,4 @@ describe ItemsController do
       expect { remove_tag_request }.to change(Tag, :count).by(0)
     end
   end
-
 end

@@ -13,14 +13,14 @@
 #  updated_at :datetime         not null
 
 describe Item, type: :model do
-  describe "column" do
+  describe 'column' do
     it { is_expected.to have_db_column(:name).of_type(:string) }
     it { is_expected.to have_db_column(:price).of_type(:decimal) }
     it { is_expected.to have_db_column(:text).of_type(:text) }
     it { is_expected.to have_db_column(:tags).of_type(:string) }
   end
 
-  describe "validations" do
+  describe 'validations' do
     it { is_expected.to validate_presence_of(:price) }
     it { is_expected.to validate_numericality_of(:price) }
   end

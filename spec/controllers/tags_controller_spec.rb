@@ -17,10 +17,9 @@ describe TagsController do
   end
 
   describe 'GET #show' do
+    subject(:show_request) { get :show, params: { id: tag.id } }
 
     let(:tag) { create(:tag) }
-
-    subject(:show_request) { get :show, params: { id: tag.id } }
 
     it 'return Http success' do
       show_request
@@ -49,11 +48,10 @@ describe TagsController do
   end
 
   describe 'PUT #update' do
+    subject(:update_request) { put :update, params: { id: tag.id, tag: new_attributes } }
 
     let(:tag) { create(:tag) }
     let(:new_attributes) { attributes_for(:tag) }
-
-    subject(:update_request) { put :update, params: { id: tag.id, tag: new_attributes} }
 
     it 'returns Http found' do
       update_request
@@ -66,9 +64,9 @@ describe TagsController do
   end
 
   describe 'DELETE #destroy' do
-    let!(:tag) { create(:tag) }
-
     subject(:destroy_request) { delete :destroy, params: { id: tag.id } }
+
+    let!(:tag) { create(:tag) }
 
     it 'returns Http no content' do
       destroy_request
@@ -79,5 +77,4 @@ describe TagsController do
       expect { destroy_request }.to change(Tag, :count).by(-1)
     end
   end
-
 end
