@@ -21,6 +21,8 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec'
+  gem 'jwt'
+  gem 'bcrypt', '~> 3.1.7'
 end
 
 group :development do
