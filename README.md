@@ -22,10 +22,25 @@
 
 # API
 
+## REST API TABLE TO USER SERVICE
+
+URL / ENDPOINT    |    VERB    |    DESCRIPTION   
+----------------- | ---------- | -------------- 
+/auth/login       |    POST    | Generate token
+/users            |    POST    | Create user      
+/users            |    GET     | Return all users
+/users/{username} |    GET     | Return user      
+/users/{username} |    PUT     | Update user      
+/users/{username} |   DELETE   | Destroy user     
+
+## REST API ITEMS AND TAGS
+
 ## <code>GET</code> requests
 
-Request
+**Request**
  <summary><code>GET</code> <code><b>/items</b></code> <code>(get list of items)</code></summary>
+
+**Headers** : { "Authorization" : token }
 
  Example response
 
@@ -38,7 +53,8 @@ Request
         "text": "Pink",
         "created_at": "2023-07-05T12:09:06.683Z",
         "updated_at": "2023-07-05T12:09:06.683Z",
-        "tags": []
+        "tags": [],
+        "user_id": 2
 },
     {
         "id": 2,
@@ -52,14 +68,17 @@ Request
           "name": "tag1",
           "created_at": "2023-07-10T08:58:53.094Z",
           "updated_at": "2023-07-10T08:58:53.094Z"
-        }]
+        }],
+        "user_id": 2
     }
 
 ]
 ```
 
-Request
+**Request**
  <summary><code>GET</code> <code><b>/items/{:id}</b></code> <code>(get item with id = :id)</code></summary>
+
+**Headers** : { "Authorization" : token }
 
 Example response
 
@@ -75,7 +94,7 @@ Example response
 }
 ```
 
-Request
+**Request**
  <summary><code>GET</code> <code><b>/tags</b></code> <code>(get tags)</code></summary>
 
 Example response
@@ -99,8 +118,10 @@ Example response
 
 ## <code>POST</code> requests
 
-Request
+**Request**
  <summary><code>POST</code> <code><b>/items</b></code> <code>(Create new item)</code></summary>
+
+**Headers** : { "Authorization" : token }
 
 Parameters 
 ```json
@@ -112,7 +133,8 @@ Parameters
 }
 ```
 
-Request
+**Request**
+
  <summary><code>POST</code> <code><b>/tags</b></code> <code>(Create new tag)</code></summary>
 
 Parameters
@@ -123,8 +145,10 @@ Parameters
 ```
 ## <code>PATCH</code> requests
 
-Request
+**Request**
  <summary><code>PATCH</code> <code><b>/items/{:id}</b></code> <code>(Update item)</code></summary>
+
+**Headers** : { "Authorization" : token }
 
 Parameters
 ```json
@@ -135,8 +159,12 @@ Parameters
 ```
 ## <code>DELETE</code> requests
 
+With Authorization:
+
  <summary><code>DELETE</code> <code><b>/items/{:id}</b></code> <code>(delete item with id = :id)</code></summary>
 
- <summary><code>DELETE</code> <code><b>/tags/{:id}</b></code> <code>(delete tag with id = :id)</code></summary>
-
  <summary><code>DELETE</code> <code><b>/items/{:id}/tags/{:id}</b></code> <code>(delete tag from item (but not from tags)</code></summary>
+
+Without Authorization
+
+ <summary><code>DELETE</code> <code><b>/tags/{:id}</b></code> <code>(delete tag with id = :id)</code></summary>
