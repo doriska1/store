@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
-describe ItemsController do
+describe ItemsController, type: :controller do
   describe 'GET #index' do
+    let(:user) { create(:user) }
+
     before do
-      create_list(:item, 10)
+      user_login(user)
+      create_list(:item, 10, user_id: user.id)
+
       get :index
+
     end
 
     it 'return http success' do
@@ -19,7 +24,12 @@ describe ItemsController do
   describe 'GET #show' do
     subject(:show_request) { get :show, params: { id: item.id } }
 
-    let(:item) { create(:item) }
+    let(:user) { create(:user) }
+    let(:item) { create(:item, user_id: user.id) }
+
+    before do
+      user_login(user)
+    end
 
     it 'return Http success' do
       show_request
@@ -35,7 +45,12 @@ describe ItemsController do
   describe 'POST #create' do
     subject(:create_request) { post :create, params: { item: item.attributes } }
 
-    let!(:item) { create(:item) }
+    let(:user) { create(:user) }
+    let!(:item) { create(:item, user_id: user.id) }
+
+    before do
+      user_login(user)
+    end
 
     it 'returns http created' do
       create_request
@@ -50,7 +65,12 @@ describe ItemsController do
   describe 'PUT #update' do
     subject(:update_request) { put :update, params: { id: item.id, item: { "text": 'abc' } } }
 
-    let(:item) { create(:item) }
+    let(:user) { create(:user) }
+    let(:item) { create(:item, user_id: user.id) }
+
+    before do
+      user_login(user)
+    end
 
     it 'returns Http found' do
       update_request
@@ -64,8 +84,12 @@ describe ItemsController do
 
   describe 'DELETE #destroy' do
     subject(:destroy_request) { delete :destroy, params: { id: item.id } }
+    let(:user) { create(:user) }
+    let!(:item) { create(:item, user_id: user.id) }
 
-    let!(:item) { create(:item) }
+    before do
+      user_login(user)
+    end
 
     it 'returns Http no content' do
       destroy_request
@@ -80,8 +104,13 @@ describe ItemsController do
   describe 'DELETE #destroy tag from item' do
     subject(:remove_tag_request) { delete :destroy_tag_from_item, params: { id: item.id, tag_id: tag.id } }
 
-    let(:item) { create(:item) }
+    let(:user) { create(:user) }
+    let(:item) { create(:item, user_id: user.id) }
     let(:tag) { create(:tag) }
+
+    before do
+      user_login(user)
+    end
 
     it 'returns Http found' do
       item.tags << tag

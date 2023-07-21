@@ -24,6 +24,7 @@ describe Item, type: :model do
     it { is_expected.to have_db_column(:price).of_type(:decimal) }
     it { is_expected.to have_db_column(:text).of_type(:text) }
     it { is_expected.to have_db_column(:tags).of_type(:string) }
+    it { is_expected.to have_db_column(:user_id).of_type(:integer) }
   end
 
   describe 'validations' do
@@ -34,6 +35,7 @@ describe Item, type: :model do
   describe 'associacion' do
     it { is_expected.to have_and_belong_to_many(:tags) }
     it { is_expected.to accept_nested_attributes_for(:tags) }
+    it { is_expected.to belong_to(:user).optional }
   end
 
   describe 'tagging' do
